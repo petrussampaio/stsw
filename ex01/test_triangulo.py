@@ -1,23 +1,22 @@
-from Triangulo import Triangulo
+import unittest
+from triangulo import classifica_triangulo
 
-def main():
-    try:
-        # Coletar os lados do triângulo
-        a = int(input("Digite o valor do lado a: "))
-        b = int(input("Digite o valor do lado b: "))
-        c = int(input("Digite o valor do lado c: "))
+class TestClassificaTriangulo(unittest.TestCase):
 
-        # Criar uma instância da classe Triangulo
-        triangulo = Triangulo(a, b, c)
+    def test_equilatero(self):
+        self.assertEqual(classifica_triangulo(5, 5, 5), "Equilátero")
 
-        # Determinar o tipo do triângulo e exibir o resultado
-        resultado = triangulo.tipo_triangulo()
-        print(f"O triângulo é: {resultado}")
+    def test_isosceles(self):
+        self.assertEqual(classifica_triangulo(5, 5, 3), "Isósceles")
 
-    except ValueError:
-        print("Por favor, insira valores inteiros válidos.")
-    except Exception as e:
-        print(f"Ocorreu um erro: {e}")
+    def test_escaleno(self):
+        self.assertEqual(classifica_triangulo(5, 4, 3), "Escaleno")
 
-if __name__ == "__main__":
-    main()
+    def test_nao_triangulo(self):
+        self.assertEqual(classifica_triangulo(1, 2, 3), "Não é um triângulo")
+
+    def test_lados_invalidos(self):
+        self.assertEqual(classifica_triangulo(-5, 0, 5), "Lados inválidos")
+
+if __name__ == '__main__':
+    unittest.main()
